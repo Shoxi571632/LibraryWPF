@@ -1,0 +1,47 @@
+﻿<Window x:Class="AdoNetWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ma'lumotlar Bazasi Boshqaruvchisi" Height="400" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Jadval nomlari ComboBox -->
+        <ComboBox Name="TablesComboBox" Grid.Row="0" Width="200" Height="30" Margin="10" 
+                  SelectionChanged="TablesComboBox_SelectionChanged"/>
+
+        <!-- Ma'lumotlar DataGrid -->
+        <DataGrid Name="DataGridTableData" Grid.Row="1" Margin="10" AutoGenerateColumns="True"/>
+
+        <!-- CRUD uchun form va tugmalar -->
+        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="10">
+
+            <!-- Insert uchun form -->
+            <StackPanel Orientation="Horizontal" Margin="5, 5, 5, 5">
+                <TextBox Name="Column1TextBox" Width="100" Margin="5" Text="Column1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name="Column2TextBox" Width="100" Margin="5" Text="Column2" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <Button Name="InsertButton" Content="Qo'shish" Width="75" Click="InsertButton_Click"/>
+            </StackPanel>
+
+            <!-- Update uchun form -->
+            <!-- Update uchun form -->
+            <StackPanel Orientation="Horizontal" Margin="5, 10, 5, 5">
+                <TextBox Name="UpdateIdTextBox" Width="50" Margin="5" Text="Old ID" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name="NewIdTextBox" Width="50" Margin="5" Text="New ID" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name="UpdateColumnTextBox" Width="100" Margin="5" Text="Column" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <TextBox Name="UpdateValueTextBox" Width="100" Margin="5" Text="New Value" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <Button Name="UpdateButton" Content="Yangilash" Width="75" Click="UpdateButton_Click"/>
+            </StackPanel>
+
+
+            <!-- O'chirish uchun form -->
+            <StackPanel Orientation="Horizontal" Margin="5, 10, 5, 5">
+                <TextBox Name="DeleteIdTextBox" Width="50" Margin="5" Text="ID" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                <Button Name="DeleteButton" Content="O'chirish" Width="75" Click="DeleteButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
