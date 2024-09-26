@@ -1,6 +1,8 @@
 ﻿using Ado.Net.Server;
 using Dapper;
 using Npgsql;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,14 +15,13 @@ namespace AdoNetWpf
         public MainWindow()
         {
             InitializeComponent();
-            UlanishOrnatish(); // Ma'lumotlar bazasiga ulanish
         }
 
-        private void UlanishOrnatish()
+        private void UlanishOrnatish(string host, string port, string database, string username, string password)
         {
             try
             {
-                string connectionString = "Host=localhost;Port=2208;Database=4-modul;Username=postgres;Password=2208";
+                string connectionString = $"Host={host};Port={port};Database={database};Username={username};Password={password}";
                 _connection = new NpgsqlConnection(connectionString);
                 _connection.Open();
                 JadvalYuklash(); // Jadvallarni yuklash
@@ -29,6 +30,12 @@ namespace AdoNetWpf
             {
                 MessageBox.Show($"Ma'lumotlar bazasiga ulanishda xatolik: {ex.Message}");
             }
+        }
+
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            UlanishOrnatish(HostTextBox.Text, PortTextBox.Text, DatabaseTextBox.Text, UsernameTextBox.Text, PasswordBox.Password);
+            MessageBox.Show("Ma'lumot muvaffaqiyatli yangilandi!");
         }
 
         private void JadvalYuklash()
@@ -101,8 +108,8 @@ namespace AdoNetWpf
 
                     // Ma'lumotlar yangilangandan keyin jadvalni yangilash
                     JadvalMalumotlariniYuklash(TablesComboBox.SelectedItem.ToString());
-        
-            MessageBox.Show("Ma'lumot muvaffaqiyatli yangilandi!");
+
+                    MessageBox.Show("Ma'lumot muvaffaqiyatli yangilandi!");
                 }
                 catch (Exception ex)
                 {
@@ -114,7 +121,6 @@ namespace AdoNetWpf
                 MessageBox.Show("Iltimos, ID larni to'g'ri kiritganingizga ishonch hosil qiling.");
             }
         }
-
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -130,10 +136,11 @@ namespace AdoNetWpf
                 MessageBox.Show($"Ma'lumotni o'chirishda xatolik: {ex.Message}");
             }
         }
+
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             var textBox = sender as TextBox;
-            if (textBox != null && textBox.Text == textBox.Name) // Tekshiramiz, agar joylanadigan matn hali ko'rsatilgan bo'lsa
+            if (textBox != null && textBox.Text == textBox.Tag.ToString()) // Tekshiramiz, agar joylanadigan matn hali ko'rsatilgan bo'lsa
             {
                 textBox.Text = string.Empty; // Foydalanuvchi matn kiritganida, joylanadigan matnni tozalaymiz
             }
@@ -144,9 +151,24 @@ namespace AdoNetWpf
             var textBox = sender as TextBox;
             if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text)) // Agar foydalanuvchi hech qanday matn kiritmasa
             {
-                textBox.Text = textBox.Name; // Qayta joylanadigan matnni qo'shamiz
+                textBox.Text = textBox.Tag.ToString(); // Qayta joylanadigan matnni qo'shamiz
             }
         }
 
+        private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (PasswordBox.Password == string.Empty)
+            {
+                PasswordBox.Clear();
+            }
+        }
+
+        private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(PasswordBox.Password))
+            {
+                PasswordBox.Password = "Password"; // Kerakli o'zgartirish
+            }
+        }
     }
 }

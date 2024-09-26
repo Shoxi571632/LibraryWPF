@@ -9,9 +9,37 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Ulanish uchun kirish maydonlari -->
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <StackPanel Margin="5">
+                <Label Content="Host:"/>
+                <TextBox Name="HostTextBox" Width="100" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Host" />
+            </StackPanel>
+            <StackPanel Margin="5">
+                <Label Content="Port:"/>
+                <TextBox Name="PortTextBox" Width="50" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Port" />
+            </StackPanel>
+            <StackPanel Margin="5">
+                <Label Content="Database:"/>
+                <TextBox Name="DatabaseTextBox" Width="100" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Database" />
+            </StackPanel>
+            <StackPanel Margin="5">
+                <Label Content="Username:"/>
+                <TextBox Name="UsernameTextBox" Width="100" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Username" />
+            </StackPanel>
+            <StackPanel Margin="5">
+                <Label Content="Password:"/>
+                <PasswordBox Name="PasswordBox" Width="100" Margin="5" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus" />
+            </StackPanel>
+            <Button Name="ConnectButton" Content="Ulanish" Width="75" Click="ConnectButton_Click" Margin="5"/>
+        </StackPanel>
+
         <!-- Jadval nomlari ComboBox -->
-        <ComboBox Name="TablesComboBox" Grid.Row="0" Width="200" Height="30" Margin="10" 
-                  SelectionChanged="TablesComboBox_SelectionChanged"/>
+        <StackPanel Grid.Row="0" Margin="10">
+            <Label Content="Tableni tanlang:" Margin="700 0 10 0"/>
+            <ComboBox Name="TablesComboBox" Width="200" Height="30" 
+                      SelectionChanged="TablesComboBox_SelectionChanged"/>
+        </StackPanel>
 
         <!-- Ma'lumotlar DataGrid -->
         <DataGrid Name="DataGridTableData" Grid.Row="1" Margin="10" AutoGenerateColumns="True"/>
@@ -20,26 +48,48 @@
         <StackPanel Grid.Row="2" Orientation="Vertical" Margin="10">
 
             <!-- Insert uchun form -->
-            <StackPanel Orientation="Horizontal" Margin="5, 5, 5, 5">
-                <TextBox Name="Column1TextBox" Width="100" Margin="5" Text="Column1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name="Column2TextBox" Width="100" Margin="5" Text="Column2" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <Button Name="InsertButton" Content="Qo'shish" Width="75" Click="InsertButton_Click"/>
+            <StackPanel Orientation="Vertical" Margin="5">
+                <Label Content="Qo'shish:"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Column1:" VerticalAlignment="Center"/>
+                    <TextBox Name="Column1TextBox" Width="100" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Column1" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Column2:" VerticalAlignment="Center"/>
+                    <TextBox Name="Column2TextBox" Width="100" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Column2" />
+                </StackPanel>
+                <Button Name="InsertButton" Content="Qo'shish" Width="75" Click="InsertButton_Click" Margin="5"/>
             </StackPanel>
 
             <!-- Update uchun form -->
-            <!-- Update uchun form -->
-            <StackPanel Orientation="Horizontal" Margin="5, 10, 5, 5">
-                <TextBox Name="UpdateIdTextBox" Width="50" Margin="5" Text="Old ID" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name="NewIdTextBox" Width="50" Margin="5" Text="New ID" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name="UpdateColumnTextBox" Width="100" Margin="5" Text="Column" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
-                <TextBox Name="UpdateValueTextBox" Width="100" Margin="5" Text="New Value" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+            <StackPanel Orientation="Vertical" Margin="5">
+                <Label Content="Yangilash:"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Old ID:" VerticalAlignment="Center"/>
+                    <TextBox Name="UpdateIdTextBox" Width="50" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Old ID" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="New ID:" VerticalAlignment="Center"/>
+                    <TextBox Name="NewIdTextBox" Width="50" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="New ID" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Column:" VerticalAlignment="Center"/>
+                    <TextBox Name="UpdateColumnTextBox" Width="100" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Column" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="New Value:" VerticalAlignment="Center"/>
+                    <TextBox Name="UpdateValueTextBox" Width="100" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="New Value" />
+                </StackPanel>
                 <Button Name="UpdateButton" Content="Yangilash" Width="75" Click="UpdateButton_Click"/>
             </StackPanel>
 
-
             <!-- O'chirish uchun form -->
-            <StackPanel Orientation="Horizontal" Margin="5, 10, 5, 5">
-                <TextBox Name="DeleteIdTextBox" Width="50" Margin="5" Text="ID" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+            <StackPanel Orientation="Vertical" Margin="5">
+                <Label Content="O'chirish:"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="ID:" VerticalAlignment="Center"/>
+                    <TextBox Name="DeleteIdTextBox" Width="50" Margin="5" Text="" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="ID" />
+                </StackPanel>
                 <Button Name="DeleteButton" Content="O'chirish" Width="75" Click="DeleteButton_Click"/>
             </StackPanel>
         </StackPanel>
